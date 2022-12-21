@@ -21,6 +21,10 @@ export class AppComponent {
     {codigo:5, descripcion:'calabaza', precio:20},
   ]
 
+  constructor(){
+    localStorage.setItem("articulos", JSON.stringify(this.articulos) )
+
+  }
   hayRegistros() {
     return this.articulos.length > 0;
   }
@@ -29,6 +33,8 @@ export class AppComponent {
     for(let x=0; x<this.articulos.length;x++)
     if (this.articulos[x].codigo == codigo){
       this.articulos.splice(x,1);
+      localStorage.setItem("articulos", JSON.stringify(this.articulos) )
+
       return;
     }
   }
@@ -43,9 +49,12 @@ export class AppComponent {
       alert('ya existe un articulo con dicho codigo');
       return;
     }
+
     this.articulos.push({codigo:this.art.codigo,
-                        descripcion:this.art.descripcion,
-                        precio:this.art.precio});
+      descripcion:this.art.descripcion,
+      precio:this.art.precio});
+    
+    localStorage.setItem("articulos", JSON.stringify(this.articulos) )
     this.art.codigo = 0;
     this.art.descripcion="";
     this.art.precio=0;
@@ -62,6 +71,8 @@ export class AppComponent {
     if (this.articulos[x].codigo== this.art.codigo){
       this.articulos[x].descripcion = this.art.descripcion;
       this.articulos[x].precio = this.art.precio;
+      localStorage.setItem("articulos", JSON.stringify(this.articulos) )
+
       return
     }
     alert('No existe el codigo de articulo ingresado')
